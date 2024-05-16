@@ -1,4 +1,4 @@
-An Arduino program to Sync-write to 12 Dynamixel AX-12A motors and sequentially read feedback such as Present Position and Moving Speed.
+An Arduino program to Sync-write to 12 Dynamixel AX-12A motors and sequentially read feedback such as Present Position and Present Speed.
 
 Reference:
 https://emanual.robotis.com/docs/en/dxl/ax/ax-12a/
