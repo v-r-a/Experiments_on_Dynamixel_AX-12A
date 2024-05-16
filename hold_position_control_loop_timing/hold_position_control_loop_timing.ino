@@ -1,3 +1,27 @@
+/* 
+MIT License
+
+Copyright (c) [2024] [Vyankatesh Ashtekar]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. 
+*/
+
 // Bioloid 12 DOF
 // Hold position sync write and sequential read from 12 motors
 // Control loop timing/ frequency test
@@ -251,12 +275,24 @@ void loop() {
     DEBUG_SERIAL.print("[SyncWrite] Fail, Lib error code: ");
     DEBUG_SERIAL.println(dxl.getLastLibErrCode());
   }
+  
   // Debugging: Read motor positions
   for (int i = 0; i < NMOTOR; i++) {
     // debug_motor_pose = dxl.readControlTableItem(PRESENT_POSITION, MOTOR_ID_LIST[i]);
     debug_motor_pose= dxl.read(MOTOR_ID_LIST[i], ADDR_AX_PRESENT_POSITION, 4, present_pos, 16);
-  }
 
+    int position = *((int*)present_pos);
+    int speed = *((int*)(present_pos + 2));
+
+    // Print the data for debugging
+    // DEBUG_SERIAL.print("Motor ID: ");
+    // DEBUG_SERIAL.println(MOTOR_ID_LIST[i]);
+    // DEBUG_SERIAL.print("Present Position: ");
+    // DEBUG_SERIAL.println(position);
+    // DEBUG_SERIAL.print("Present Speed: ");
+    // DEBUG_SERIAL.println(speed);
+    // DEBUG_SERIAL.println(); // Print a blank line for readability
+  }
 
   DEBUG_SERIAL.print("One loop time: ");
   myTimeEnd = micros();
