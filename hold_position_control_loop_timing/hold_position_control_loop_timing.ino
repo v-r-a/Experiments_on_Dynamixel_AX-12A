@@ -129,6 +129,7 @@ using namespace ControlTableItem;
 /***********************************************************************************************/
 unsigned long myTimeStart, myTimeEnd;
 int debug_motor_pose;
+uint8_t present_pos[16];
 bool sync_write_feedback, write_feedback;
 int inputpos;
 int32_t read_init;
@@ -252,7 +253,8 @@ void loop() {
   }
   // Debugging: Read motor positions
   for (int i = 0; i < NMOTOR; i++) {
-    debug_motor_pose = dxl.readControlTableItem(PRESENT_POSITION, MOTOR_ID_LIST[i]);
+    // debug_motor_pose = dxl.readControlTableItem(PRESENT_POSITION, MOTOR_ID_LIST[i]);
+    debug_motor_pose= dxl.read(MOTOR_ID_LIST[i], ADDR_AX_PRESENT_POSITION, 4, present_pos, 16);
   }
 
 
